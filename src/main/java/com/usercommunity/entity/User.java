@@ -1,11 +1,14 @@
 package com.usercommunity.entity;
 
+import java.util.List;
+
 public class User {
     private int id;
     private String email;
     private String password;
     private String fullName;
     private String dateOfBirth;
+    private List<Recipe> recipeList;
 
     public User(int id, String email, String password, String fullName, String dateOfBirth) {
         this.id = id;
@@ -56,6 +59,14 @@ public class User {
 
     public void setDateOfBirth(String dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
+    }
+
+    public List<Recipe> getRecipeList() {
+        return recipeList;
+    }
+
+    public void setRecipeList(List<Recipe> recipeList) {
+        this.recipeList = recipeList;
     }
 
     public String getAuthKey() {

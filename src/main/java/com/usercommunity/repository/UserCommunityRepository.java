@@ -5,22 +5,22 @@ import com.usercommunity.entity.Recipe;
 import com.usercommunity.entity.User;
 import org.springframework.stereotype.Repository;
 
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
-import java.util.concurrent.atomic.AtomicLong;
 
 @Repository
 public class UserCommunityRepository implements IRepository {
 
     private static Map<Integer, User> userMap;
+    private static Map<Integer, Recipe> recipeMap;
     private static Map<String, User> usernamePassMap;
     private static final AtomicInteger counter = new AtomicInteger();
+    private static final AtomicInteger counterRecipe = new AtomicInteger();
 
     static {
         userMap = new HashMap<>();
         usernamePassMap = new HashMap<>();
+        recipeMap = new HashMap<>();
         String username;
         User user;
         for (int i = 0; i<5; i++) {
@@ -29,7 +29,24 @@ public class UserCommunityRepository implements IRepository {
             userMap.put(i, user);
             usernamePassMap.put(user.getAuthKey(), user);
             counter.incrementAndGet();
+            generateRecipeForUser(user);
         }
+    }
+
+    private static void generateRecipeForUser(User user) {
+        //int id, String title, String receipeData, String createdDate, String modifiedDate, int id_user
+        List<Recipe> recipeList = new ArrayList<>();
+        for (int i=0; i<5; i++){
+            Recipe recipe = new Recipe(counterRecipe.incrementAndGet()
+            ,"Recipe-"+i
+            , "Recipe Data content-"+i
+            , "01-01-2010"
+            , "01-01-2010"
+            , user.getId());
+            recipeMap.put(recipe.getId(), recipe);
+            recipeList.add(recipe);
+        }
+        user.setRecipeList(recipeList);
     }
 
     @Override
@@ -48,30 +65,43 @@ public class UserCommunityRepository implements IRepository {
 
     @Override
     public boolean createUser(User user) {
-        user.setId(counter.incrementAndGet());
-        userMap.put(user.getId(), user);
-        usernamePassMap.put(user.getAuthKey(), user);
-        return false;
+        try {
+            user.setId(counter.incrementAndGet());
+            userMap.put(user.getId(), user);
+            usernamePassMap.put(user.getAuthKey(), user);
+            return true;
+        } catch (Exception e) {
+            System.out.println("Exc: "+ e.getMessage());
+            return false;
+        }
     }
 
     @Override
     public Collection<Recipe> getAllRecipes() {
-        return null;
+        return recipeMap.values();
     }
 
     @Override
     public Collection<Recipe> getAllRecipesByUser(int id_user) {
-        return null;
+        return userMap.get(id_user).getRecipeList();
     }
 
     @Override
     public Recipe getRecipeById(int id_recipe) {
-        return null;
+        return recipeMap.get(id_recipe);
     }
 
     @Override
     public boolean createRecipe(Recipe recipe) {
-        return false;
+        try {
+            recipe.setId(counterRecipe.incrementAndGet());
+            recipeMap.put(recipe.getId(), recipe);
+            userMap.get(recipe.getId_user()).getRecipeList().add(recipe);
+            return true;
+        } catch (Exception e) {
+            System.out.println("Exc: "+ e.getMessage());
+            return false;
+        }
     }
 
     @Override
