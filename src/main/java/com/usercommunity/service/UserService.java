@@ -4,6 +4,7 @@ import com.usercommunity.entity.Recipe;
 import com.usercommunity.repository.IRepository;
 import com.usercommunity.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
@@ -12,6 +13,7 @@ import java.util.Collection;
 public class UserService {
 
     @Autowired
+    @Qualifier("MockData")
     private IRepository userRepository;
 
     public Collection<User> getAllUsers() {

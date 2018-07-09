@@ -4,12 +4,14 @@ import com.usercommunity.controller.exception.RecipeNotFoundException;
 import com.usercommunity.controller.exception.UserNotFoundException;
 import com.usercommunity.entity.Recipe;
 import com.usercommunity.entity.User;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
 import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 
 @Repository
+@Qualifier("MockData")
 public class UserCommunityRepository implements IRepository {
 
     private static Map<Integer, User> userMap;
