@@ -1,5 +1,6 @@
 package com.usercommunity.repository;
 
+import com.usercommunity.controller.exception.RecipeNotFoundException;
 import com.usercommunity.controller.exception.UserNotFoundException;
 import com.usercommunity.entity.Recipe;
 import com.usercommunity.entity.User;
@@ -88,7 +89,11 @@ public class UserCommunityRepository implements IRepository {
 
     @Override
     public Recipe getRecipeById(int id_recipe) {
-        return recipeMap.get(id_recipe);
+        if (recipeMap.containsKey(id_recipe)) {
+            return recipeMap.get(id_recipe);
+        } else {
+            throw new RecipeNotFoundException("RecipeId:"+id_recipe);
+        }
     }
 
     @Override

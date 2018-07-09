@@ -2,7 +2,6 @@ package com.usercommunity.controller;
 
 import com.usercommunity.entity.Recipe;
 import com.usercommunity.entity.User;
-import com.usercommunity.repository.IRepository;
 import com.usercommunity.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -37,15 +36,21 @@ public class UserCommunityController {
     }
 
     //TODO: consider: GET /recipe?page=0&pageLimit=10
-    @RequestMapping(method=GET, value="/recipe")
+    @RequestMapping(method=GET, value="/recipes")
     public Collection<Recipe> getAllRecipes(@RequestParam(value="page") String page, @RequestParam(value="pageLimit") String pageLimit) {
         //TODO: use page and pageLimit params
         return userService.getAllRecipes();
     }
 
-    @RequestMapping(method=GET, value="/recipe/{userId}")
-    public Collection<Recipe> getAllRecipes(@PathVariable int userId) {
+    //TODO: consider: GET /recipe/userId?page=0&pageLimit=10
+    @RequestMapping(method=GET, value="/recipes/{userId}")
+    public Collection<Recipe> getAllRecipesByUserId(@PathVariable int userId) {
         //TODO: use page and pageLimit params
         return userService.getAllRecipesByUser(userId);
+    }
+
+    @RequestMapping(method=GET, value="/recipe/{recipeId}")
+    public Recipe getRecipeById(@PathVariable int recipeId) {
+        return userService.getRecipeById(recipeId);
     }
 }
