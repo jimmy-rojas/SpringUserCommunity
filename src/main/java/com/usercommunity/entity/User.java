@@ -1,10 +1,13 @@
 package com.usercommunity.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.List;
 
 public class User {
     private int id;
     private String email;
+    @JsonIgnore
     private String password;
     private String fullName;
     private String dateOfBirth;
@@ -69,7 +72,14 @@ public class User {
         this.recipeList = recipeList;
     }
 
+    @JsonIgnore
     public String getAuthKey() {
         return getEmail() + getPassword();
+    }
+
+    public void replaceExistingRecipe(Recipe recipe) {
+        int index = recipeList.indexOf(recipe);
+        recipeList.remove(index);
+        recipeList.add(index, recipe);
     }
 }

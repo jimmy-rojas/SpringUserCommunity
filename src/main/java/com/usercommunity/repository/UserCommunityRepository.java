@@ -111,12 +111,29 @@ public class UserCommunityRepository implements IRepository {
 
     @Override
     public boolean updateRecipe(Recipe recipe) {
-        return false;
+        try {
+            recipeMap.put(recipe.getId(), recipe);
+            userMap.get(recipe.getId_user()).replaceExistingRecipe(recipe);
+            return true;
+        } catch (Exception e) {
+            System.out.println("Exc: "+ e.getMessage());
+            return false;
+        }
     }
 
     @Override
     public boolean deleteRecipe(int id_recipe) {
-        return false;
+        try {
+            Recipe tempRecipe = recipeMap.get(id_recipe);
+            tempRecipe.setId(id_recipe);
+            int index = userMap.get(tempRecipe.getId_user()).getRecipeList().indexOf(tempRecipe);
+            userMap.get(tempRecipe.getId_user()).getRecipeList().remove(index);
+            recipeMap.remove(id_recipe);
+            return true;
+        } catch (Exception e) {
+            System.out.println("Exc: "+ e.getMessage());
+            return false;
+        }
     }
 
 }

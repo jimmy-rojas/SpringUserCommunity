@@ -67,4 +67,16 @@ public class Recipe {
     public void setId_user(int id_user) {
         this.id_user = id_user;
     }
+
+    public boolean equals(Object o) {
+        if (!(o instanceof Recipe)) {
+            return false;
+        }
+        Recipe other = (Recipe) o;
+        return id == other.getId();
+    }
+
+    public int hashCode() {
+        return Integer.valueOf(id).hashCode();
+    }
 }

@@ -10,8 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
 
-import static org.springframework.web.bind.annotation.RequestMethod.GET;
-import static org.springframework.web.bind.annotation.RequestMethod.POST;
+import static org.springframework.web.bind.annotation.RequestMethod.*;
 
 @RestController
 public class UserCommunityController {
@@ -26,18 +25,22 @@ public class UserCommunityController {
     }
 
     @RequestMapping(method=GET, value="/user")
-    public User authUser(@RequestParam(value="username") String username, @RequestParam(value="password") String password) {
+    public User authUser(@RequestParam(value="username") String username,
+                         @RequestParam(value="password") String password) {
         return userService.authUser(username, password);
     }
 
     @RequestMapping(method=POST, value="/user")
     public ResponseEntity createUser(@RequestBody User user) {
-        return userService.createUser(user) ? new ResponseEntity(HttpStatus.OK) : new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+        return userService.createUser(user)
+                ? new ResponseEntity(HttpStatus.OK)
+                : new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     //TODO: consider: GET /recipe?page=0&pageLimit=10
     @RequestMapping(method=GET, value="/recipes")
-    public Collection<Recipe> getAllRecipes(@RequestParam(value="page") String page, @RequestParam(value="pageLimit") String pageLimit) {
+    public Collection<Recipe> getAllRecipes(@RequestParam(value="page") String page,
+                                            @RequestParam(value="pageLimit") String pageLimit) {
         //TODO: use page and pageLimit params
         return userService.getAllRecipes();
     }
@@ -52,5 +55,26 @@ public class UserCommunityController {
     @RequestMapping(method=GET, value="/recipe/{recipeId}")
     public Recipe getRecipeById(@PathVariable int recipeId) {
         return userService.getRecipeById(recipeId);
+    }
+
+    @RequestMapping(method=POST, value="/recipe")
+    public ResponseEntity createRecipe(@RequestBody Recipe recipe) {
+        return userService.createRecipe(recipe)
+                ? new ResponseEntity(HttpStatus.OK)
+                : new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    @RequestMapping(method=PUT, value="/recipe")
+    public ResponseEntity updateRecipe(@RequestBody Recipe recipe) {
+        return userService.updateRecipe(recipe)
+                ? new ResponseEntity(HttpStatus.OK)
+                : new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    @RequestMapping(method=DELETE, value="/recipe/{recipeId}")
+    public ResponseEntity updateRecipe(@PathVariable int recipeId) {
+        return userService.deleteRecipe(recipeId)
+                ? new ResponseEntity(HttpStatus.OK)
+                : new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }
