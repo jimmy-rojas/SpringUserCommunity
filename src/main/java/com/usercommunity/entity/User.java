@@ -57,4 +57,8 @@ public class User {
     public void setDateOfBirth(String dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
+
+    public String getAuthKey() {
+        return getEmail() + getPassword();
+    }
 }
