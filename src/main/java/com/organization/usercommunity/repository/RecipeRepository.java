@@ -1,16 +1,13 @@
 package com.organization.usercommunity.repository;
 
 import com.organization.usercommunity.controller.exception.RecipeNotFoundException;
-import com.organization.usercommunity.controller.exception.UserNotFoundException;
 import com.organization.usercommunity.entity.Recipe;
-import com.organization.usercommunity.entity.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
 import java.util.*;
-import java.util.concurrent.atomic.AtomicInteger;
 
 @Repository
 @Qualifier("MockData")

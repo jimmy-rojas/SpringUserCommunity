@@ -1,8 +1,8 @@
 package com.organization.usercommunity.entity;
 
 public class UserAuth {
-    String username;
-    String password;
+    private String username;
+    private String password;
 
     public UserAuth(String username, String password) {
         this.username = username;
