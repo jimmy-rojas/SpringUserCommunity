@@ -12,7 +12,6 @@ import java.util.Collection;
 public class UserService {
 
     @Autowired
-    @Qualifier("MockData")
     private IUserRepository userRepository;
 
     public Collection<User> getAllUsers() {

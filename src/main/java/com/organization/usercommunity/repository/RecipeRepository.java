@@ -4,13 +4,13 @@ import com.organization.usercommunity.controller.exception.RecipeNotFoundExcepti
 import com.organization.usercommunity.entity.Recipe;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Repository;
 
 import java.util.*;
 
 @Repository
-@Qualifier("MockData")
+@Profile("default")
 public class RecipeRepository extends RepositoryCommon implements IRecipeRepository {
 
     private final Logger log = LoggerFactory.getLogger(this.getClass());

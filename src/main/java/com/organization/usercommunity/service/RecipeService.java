@@ -12,7 +12,6 @@ import java.util.Collection;
 public class RecipeService {
 
     @Autowired
-    @Qualifier("MockData")
     private IRecipeRepository userRepository;
 
     public Collection<Recipe> getAllRecipes() {
