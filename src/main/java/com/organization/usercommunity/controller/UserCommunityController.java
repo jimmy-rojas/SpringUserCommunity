@@ -1,8 +1,8 @@
-package com.usercommunity.controller;
+package com.organization.usercommunity.controller;
 
-import com.usercommunity.entity.Recipe;
-import com.usercommunity.entity.User;
-import com.usercommunity.service.UserService;
+import com.organization.usercommunity.entity.Recipe;
+import com.organization.usercommunity.entity.User;
+import com.organization.usercommunity.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

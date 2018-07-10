@@ -1,7 +1,7 @@
-package com.usercommunity.repository;
+package com.organization.usercommunity.repository;
 
-import com.usercommunity.entity.Recipe;
-import com.usercommunity.entity.User;
+import com.organization.usercommunity.entity.Recipe;
+import com.organization.usercommunity.entity.User;
 
 import java.util.Collection;
 

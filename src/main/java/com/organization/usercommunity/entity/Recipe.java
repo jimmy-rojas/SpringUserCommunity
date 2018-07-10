@@ -1,4 +1,4 @@
-package com.usercommunity.entity;
+package com.organization.usercommunity.entity;
 
 public class Recipe {
     private int id;

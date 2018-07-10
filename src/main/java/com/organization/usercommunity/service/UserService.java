@@ -1,8 +1,8 @@
-package com.usercommunity.service;
+package com.organization.usercommunity.service;
 
-import com.usercommunity.entity.Recipe;
-import com.usercommunity.repository.IRepository;
-import com.usercommunity.entity.User;
+import com.organization.usercommunity.entity.User;
+import com.organization.usercommunity.entity.Recipe;
+import com.organization.usercommunity.repository.IRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;

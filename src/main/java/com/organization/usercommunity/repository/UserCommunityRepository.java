@@ -1,9 +1,9 @@
-package com.usercommunity.repository;
+package com.organization.usercommunity.repository;
 
-import com.usercommunity.controller.exception.RecipeNotFoundException;
-import com.usercommunity.controller.exception.UserNotFoundException;
-import com.usercommunity.entity.Recipe;
-import com.usercommunity.entity.User;
+import com.organization.usercommunity.controller.exception.RecipeNotFoundException;
+import com.organization.usercommunity.entity.User;
+import com.organization.usercommunity.controller.exception.UserNotFoundException;
+import com.organization.usercommunity.entity.Recipe;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
