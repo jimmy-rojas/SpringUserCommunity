@@ -4,6 +4,8 @@ import com.organization.usercommunity.controller.exception.RecipeNotFoundExcepti
 import com.organization.usercommunity.controller.exception.UserNotFoundException;
 import com.organization.usercommunity.entity.Recipe;
 import com.organization.usercommunity.entity.User;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
@@ -13,6 +15,8 @@ import java.util.concurrent.atomic.AtomicInteger;
 @Repository
 @Qualifier("MockData")
 public class RecipeRepository extends RepositoryCommon implements IRecipeRepository {
+
+    private final Logger log = LoggerFactory.getLogger(this.getClass());
 
     @Override
     public Collection<Recipe> getAllRecipes() {
@@ -41,7 +45,7 @@ public class RecipeRepository extends RepositoryCommon implements IRecipeReposit
             userMap.get(recipe.getId_user()).getRecipeList().add(recipe);
             return recipe;
         } catch (Exception e) {
-            System.out.println("Exc: "+ e.getMessage());
+            log.error("createRecipe error", e);
             return null;
         }
     }
@@ -53,7 +57,7 @@ public class RecipeRepository extends RepositoryCommon implements IRecipeReposit
             userMap.get(recipe.getId_user()).replaceExistingRecipe(recipe);
             return recipe;
         } catch (Exception e) {
-            System.out.println("Exc: "+ e.getMessage());
+            log.error("updateRecipe error", e);
             return null;
         }
     }
@@ -68,7 +72,7 @@ public class RecipeRepository extends RepositoryCommon implements IRecipeReposit
             recipeMap.remove(id_recipe);
             return true;
         } catch (Exception e) {
-            System.out.println("Exc: "+ e.getMessage());
+            log.error("deleteRecipe error", e);
             return false;
         }
     }
