@@ -1,4 +1,4 @@
-package com.organization.usercommunity.controller;
+package com.organization.usercommunity.entity;
 
 public class UserAuth {
     String username;

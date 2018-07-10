@@ -13,28 +13,10 @@ import java.util.Collection;
 import static org.springframework.web.bind.annotation.RequestMethod.*;
 
 @RestController
-public class UserCommunityController {
+public class UserRecipeController {
 
     @Autowired
     private UserService userService;
-
-    //TODO: Do not forget remove this end-point
-    @RequestMapping(method=GET, value="/")
-    public Collection<User> getAllUsers() {
-        return userService.getAllUsers();
-    }
-
-    @RequestMapping(method=POST, value="/users")
-    public User authUser(@RequestBody UserAuth userAuth) {
-        return userService.authUser(userAuth.getUsername(), userAuth.getPassword());
-    }
-
-    @RequestMapping(method=POST, value="/user")
-    public ResponseEntity createUser(@RequestBody User user) {
-        return userService.createUser(user)
-                ? new ResponseEntity(HttpStatus.OK)
-                : new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
-    }
 
     //TODO: consider: GET /recipe?page=0&pageLimit=10
     @RequestMapping(method=GET, value="/recipes")
