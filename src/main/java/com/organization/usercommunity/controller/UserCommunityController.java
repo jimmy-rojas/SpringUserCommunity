@@ -24,10 +24,9 @@ public class UserCommunityController {
         return userService.getAllUsers();
     }
 
-    @RequestMapping(method=GET, value="/user")
-    public User authUser(@RequestParam(value="username") String username,
-                         @RequestParam(value="password") String password) {
-        return userService.authUser(username, password);
+    @RequestMapping(method=POST, value="/users")
+    public User authUser(@RequestBody UserAuth userAuth) {
+        return userService.authUser(userAuth.getUsername(), userAuth.getPassword());
     }
 
     @RequestMapping(method=POST, value="/user")
