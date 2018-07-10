@@ -8,8 +8,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Collection;
-
 import static org.springframework.web.bind.annotation.RequestMethod.*;
 
 @RestController
@@ -18,12 +16,6 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    //TODO: Do not forget remove this end-point
-    @RequestMapping(method=GET, value="/")
-    public Collection<User> getAllUsers() {
-        return userService.getAllUsers();
-    }
-
     @RequestMapping(method=POST, value="/users")
     public User authUser(@RequestBody UserAuth userAuth) {
         return userService.authUser(userAuth.getUsername(), userAuth.getPassword());
@@ -31,8 +23,9 @@ public class UserController {
 
     @RequestMapping(method=POST, value="/user")
     public ResponseEntity createUser(@RequestBody User user) {
-        return userService.createUser(user)
-                ? new ResponseEntity(HttpStatus.OK)
+        User newUser = userService.createUser(user);
+        return newUser != null
+                ? new ResponseEntity(newUser, HttpStatus.OK)
                 : new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }
