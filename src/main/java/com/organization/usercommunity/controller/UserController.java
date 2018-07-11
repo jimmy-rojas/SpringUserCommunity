@@ -33,4 +33,12 @@ public class UserController {
                 ? new ResponseEntity(newUser, HttpStatus.OK)
                 : new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
     }
+
+    @RequestMapping(method=PUT, value="/user")
+    public ResponseEntity updateUser(@RequestBody User user) {
+        User newUser = userService.updateUser(user);
+        return newUser != null
+                ? new ResponseEntity(newUser, HttpStatus.OK)
+                : new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+    }
 }
