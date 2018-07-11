@@ -1,9 +1,11 @@
 package com.organization.usercommunity.service;
 
+import com.organization.usercommunity.controller.exception.RecipeNotFoundException;
 import com.organization.usercommunity.entity.Recipe;
-import com.organization.usercommunity.repository.IRecipeRepository;
+import com.organization.usercommunity.entity.User;
+import com.organization.usercommunity.repository.RecipeRepository;
+import com.organization.usercommunity.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
@@ -12,29 +14,40 @@ import java.util.Collection;
 public class RecipeService {
 
     @Autowired
-    private IRecipeRepository userRepository;
+    private RecipeRepository recipeRepository;
+
+    @Autowired
+    private UserRepository userRepository;
 
     public Collection<Recipe> getAllRecipes() {
-        return userRepository.getAllRecipes();
+        return recipeRepository.findAll();
     }
 
-    public Collection<Recipe> getAllRecipesByUser(int id_user) {
-        return userRepository.getAllRecipesByUser(id_user);
+    public Collection<Recipe> getAllRecipesByUser(Long id_user) {
+        return recipeRepository.findByUserId(id_user);
     }
 
-    public Recipe getRecipeById(int id_recipe) {
-        return userRepository.getRecipeById(id_recipe);
+    public Recipe getRecipeById(Long id_recipe) {
+        if (recipeRepository.existsById(id_recipe)) {
+            return recipeRepository.findById(id_recipe).get();
+        } else {
+            throw new RecipeNotFoundException("RecipeId:"+id_recipe);
+        }
     }
 
     public Recipe createRecipe(Recipe recipe) {
-        return userRepository.createRecipe(recipe);
+        User user = userRepository.findById(recipe.getUser().getId()).get();
+        //TODO: check id present here
+        recipe.setUser(user);
+        recipeRepository.save(recipe);
+        return recipe;
     }
 
     public Recipe updateRecipe(Recipe recipe) {
-        return userRepository.updateRecipe(recipe);
+        return recipeRepository.save(recipe);
     }
 
-    public boolean deleteRecipe(int id_recipe) {
-        return userRepository.deleteRecipe(id_recipe);
+    public void deleteRecipe(Long id_recipe) {
+        recipeRepository.deleteById(id_recipe);
     }
 }

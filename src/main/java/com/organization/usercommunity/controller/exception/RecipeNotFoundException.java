@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 @ResponseStatus(HttpStatus.NOT_FOUND)
 public class RecipeNotFoundException extends RuntimeException {
 
-    public RecipeNotFoundException(String userName) {
-        super("Recipe not exist '" + userName + "'.");
+    public RecipeNotFoundException(String RecipeId) {
+        super("Recipe not exist '" + RecipeId + "'.");
     }
 }

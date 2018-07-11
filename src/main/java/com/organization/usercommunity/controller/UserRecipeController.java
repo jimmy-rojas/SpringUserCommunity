@@ -27,13 +27,13 @@ public class UserRecipeController {
 
     //TODO: consider: GET /recipe/userId?page=0&pageLimit=10
     @RequestMapping(method=GET, value="/recipes/{userId}")
-    public Collection<Recipe> getAllRecipesByUserId(@PathVariable int userId) {
+    public Collection<Recipe> getAllRecipesByUserId(@PathVariable Long userId) {
         //TODO: use page and pageLimit params
         return recipeService.getAllRecipesByUser(userId);
     }
 
     @RequestMapping(method=GET, value="/recipe/{recipeId}")
-    public Recipe getRecipeById(@PathVariable int recipeId) {
+    public Recipe getRecipeById(@PathVariable Long recipeId) {
         return recipeService.getRecipeById(recipeId);
     }
 
@@ -52,9 +52,8 @@ public class UserRecipeController {
     }
 
     @RequestMapping(method=DELETE, value="/recipe/{recipeId}")
-    public ResponseEntity updateRecipe(@PathVariable int recipeId) {
-        return recipeService.deleteRecipe(recipeId)
-                ? new ResponseEntity(HttpStatus.OK)
-                : new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+    public ResponseEntity updateRecipe(@PathVariable Long recipeId) {
+        recipeService.deleteRecipe(recipeId);
+        return new ResponseEntity(HttpStatus.OK);
     }
 }

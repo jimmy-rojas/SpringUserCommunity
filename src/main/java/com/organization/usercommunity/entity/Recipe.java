@@ -1,30 +1,40 @@
 package com.organization.usercommunity.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import javax.persistence.*;
+
+@Entity
 public class Recipe {
-    private int id;
+
+    @Id
+    @GeneratedValue
+    private Long id;
     private String title;
     private String receipeData;
     private String createdDate;
     private String modifiedDate;
-    private int id_user;
 
-    public Recipe(int id, String title, String receipeData, String createdDate, String modifiedDate, int id_user) {
-        this.id = id;
+//    @JsonIgnore
+    @ManyToOne
+    private User user;
+
+    public Recipe(String title, String receipeData, String createdDate, String modifiedDate, User user) {
         this.title = title;
         this.receipeData = receipeData;
         this.createdDate = createdDate;
         this.modifiedDate = modifiedDate;
-        this.id_user = id_user;
+        this.user = user;
     }
 
-    public Recipe() {
+    private Recipe() {
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -60,23 +70,12 @@ public class Recipe {
         this.modifiedDate = modifiedDate;
     }
 
-    public int getId_user() {
-        return id_user;
+    public User getUser() {
+        return user;
     }
 
-    public void setId_user(int id_user) {
-        this.id_user = id_user;
+    public void setUser(User user) {
+        this.user = user;
     }
 
-    public boolean equals(Object o) {
-        if (!(o instanceof Recipe)) {
-            return false;
-        }
-        Recipe other = (Recipe) o;
-        return id == other.getId();
-    }
-
-    public int hashCode() {
-        return Integer.valueOf(id).hashCode();
-    }
 }

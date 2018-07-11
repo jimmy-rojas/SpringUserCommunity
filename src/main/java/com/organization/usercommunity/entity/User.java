@@ -2,33 +2,45 @@ package com.organization.usercommunity.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import java.util.ArrayList;
 import java.util.List;
 
+@Entity
 public class User {
-    private int id;
+
+    @Id
+    @GeneratedValue
+    private Long id;
+
     private String email;
     @JsonIgnore
     private String password;
     private String fullName;
     private String dateOfBirth;
-    private List<Recipe> recipeList;
 
-    public User(int id, String email, String password, String fullName, String dateOfBirth) {
-        this.id = id;
+    @JsonIgnore
+    @OneToMany(mappedBy = "user")
+    private List<Recipe> recipeList = new ArrayList<>();
+
+    public User(String email, String password, String fullName, String dateOfBirth) {
         this.email = email;
         this.password = password;
         this.fullName = fullName;
         this.dateOfBirth = dateOfBirth;
     }
 
-    public User() {
+    private User() {
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -75,11 +87,5 @@ public class User {
     @JsonIgnore
     public String getAuthKey() {
         return getEmail() + getPassword();
-    }
-
-    public void replaceExistingRecipe(Recipe recipe) {
-        int index = recipeList.indexOf(recipe);
-        recipeList.remove(index);
-        recipeList.add(index, recipe);
     }
 }

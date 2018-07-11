@@ -1,9 +1,9 @@
 package com.organization.usercommunity.service;
 
+import com.organization.usercommunity.controller.exception.UserNotFoundException;
 import com.organization.usercommunity.entity.User;
-import com.organization.usercommunity.repository.IUserRepository;
+import com.organization.usercommunity.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
@@ -12,17 +12,30 @@ import java.util.Collection;
 public class UserService {
 
     @Autowired
-    private IUserRepository userRepository;
+    private UserRepository userRepository;
 
     public Collection<User> getAllUsers() {
-        return userRepository.getAllUsers();
+        return userRepository.findAll();
     }
 
     public User authUser(String username, String password) {
-        return userRepository.authUser(username, password);
+        User user = userRepository.findByEmail(username);
+        if (user != null && user.getPassword().equalsIgnoreCase(password)) {
+            return user;
+        } else {
+            throw new UserNotFoundException(username);
+        }
     }
 
     public User createUser(User user) {
-        return userRepository.createUser(user);
+        //TODO: check unique username here
+        userRepository.save(user);
+        return user;
+    }
+
+    public User updateUser(User user) {
+        //TODO: check id present here
+        userRepository.save(user);
+        return user;
     }
 }
