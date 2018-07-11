@@ -15,8 +15,9 @@ public class Recipe {
     private String createdDate;
     private String modifiedDate;
 
-//    @JsonIgnore
+    @JsonIgnore
     @ManyToOne
+    @JoinColumn(name = "fk_user", updatable=false)
     private User user;
 
     public Recipe(String title, String receipeData, String createdDate, String modifiedDate, User user) {

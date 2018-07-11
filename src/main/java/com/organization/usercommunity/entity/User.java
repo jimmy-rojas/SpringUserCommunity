@@ -2,10 +2,7 @@ package com.organization.usercommunity.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,11 +18,11 @@ public class User {
     private String password;
     private String fullName;
     private String dateOfBirth;
-
+/*
     @JsonIgnore
     @OneToMany(mappedBy = "user")
     private List<Recipe> recipeList = new ArrayList<>();
-
+*/
     public User(String email, String password, String fullName, String dateOfBirth) {
         this.email = email;
         this.password = password;
@@ -75,7 +72,7 @@ public class User {
     public void setDateOfBirth(String dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
-
+/*
     public List<Recipe> getRecipeList() {
         return recipeList;
     }
@@ -83,7 +80,7 @@ public class User {
     public void setRecipeList(List<Recipe> recipeList) {
         this.recipeList = recipeList;
     }
-
+*/
     @JsonIgnore
     public String getAuthKey() {
         return getEmail() + getPassword();

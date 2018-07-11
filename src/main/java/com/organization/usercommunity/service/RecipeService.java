@@ -36,6 +36,7 @@ public class RecipeService {
     }
 
     public Recipe createRecipe(Recipe recipe) {
+        //TODO: Is there a way to fetch parent User to tie the relationship?
         User user = userRepository.findById(recipe.getUser().getId()).get();
         //TODO: check id present here
         recipe.setUser(user);
