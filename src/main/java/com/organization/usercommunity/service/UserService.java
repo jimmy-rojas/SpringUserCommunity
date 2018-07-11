@@ -27,6 +27,14 @@ public class UserService {
         }
     }
 
+    public User getUser(Long userId) {
+        if (userRepository.existsById(userId)) {
+            return userRepository.findById(userId).get();
+        } else {
+            throw new UserNotFoundException("UserId:"+userId);
+        }
+    }
+
     public User createUser(User user) {
         //TODO: check unique username here
         userRepository.save(user);

@@ -21,6 +21,11 @@ public class UserController {
         return userService.authUser(userAuth.getUsername(), userAuth.getPassword());
     }
 
+    @RequestMapping(method=GET, value="/user/{userId}")
+    public User authUser(@PathVariable Long userId) {
+        return userService.getUser(userId);
+    }
+
     @RequestMapping(method=POST, value="/user")
     public ResponseEntity createUser(@RequestBody User user) {
         User newUser = userService.createUser(user);

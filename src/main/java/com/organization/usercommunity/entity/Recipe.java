@@ -15,7 +15,7 @@ public class Recipe {
     private String createdDate;
     private String modifiedDate;
 
-    @JsonIgnore
+//    @JsonIgnore //This does not allow receive user.id from client to create new record
     @ManyToOne
     @JoinColumn(name = "fk_user", updatable=false)
     private User user;
