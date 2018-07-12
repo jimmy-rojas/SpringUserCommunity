@@ -1,7 +1,11 @@
 package com.organization.usercommunity.entity;
 
+import javax.validation.constraints.NotBlank;
+
 public class UserAuth {
+    @NotBlank(message = "UserName must not be blank.")
     private String username;
+    @NotBlank(message = "Password must not be blank")
     private String password;
 
     public UserAuth(String username, String password) {

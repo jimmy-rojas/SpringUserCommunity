@@ -2,6 +2,9 @@ package com.organization.usercommunity.controller.exception;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import org.springframework.http.HttpStatus;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 
 import java.time.LocalDateTime;
 
@@ -33,6 +36,16 @@ public class ApiError {
         this();
         this.status = status;
         this.message = message;
+        this.debugMessage = ex.getLocalizedMessage();
+    }
+
+    public ApiError(HttpStatus status, Throwable ex, BindingResult bindingResult) {
+        this();
+        this.status = status;
+        this.message = "Validation failed. " + bindingResult.getErrorCount() + " error(s).";
+        for (ObjectError objectError : bindingResult.getAllErrors()) {
+            this.message += " ["+objectError.getDefaultMessage()+"]";
+        }
         this.debugMessage = ex.getLocalizedMessage();
     }
 

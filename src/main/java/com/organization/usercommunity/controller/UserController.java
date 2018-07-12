@@ -9,6 +9,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 import static org.springframework.web.bind.annotation.RequestMethod.*;
 
 @RestController
@@ -18,7 +20,7 @@ public class UserController {
     private UserService userService;
 
     @RequestMapping(method=POST, value="/users")
-    public User authUser(@RequestBody UserAuth userAuth) throws UserNotFoundException {
+    public User authUser(@Valid @RequestBody UserAuth userAuth) throws UserNotFoundException {
         return userService.authUser(userAuth.getUsername(), userAuth.getPassword());
     }
 

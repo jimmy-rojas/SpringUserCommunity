@@ -5,6 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
@@ -36,6 +37,15 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
                                                                          WebRequest request) {
         String error = "Method not allowed";
         return buildResponseEntity(new ApiError(HttpStatus.METHOD_NOT_ALLOWED, error, ex));
+    }
+
+    @Override
+    protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex,
+                                                                  HttpHeaders headers,
+                                                                  HttpStatus status,
+                                                                  WebRequest request) {
+        String error = "ApiError: Invalid Method Argument";
+        return buildResponseEntity(new ApiError(HttpStatus.NOT_FOUND, ex, ex.getBindingResult()));
     }
 
     @ExceptionHandler(EntityNotFoundException.class)
