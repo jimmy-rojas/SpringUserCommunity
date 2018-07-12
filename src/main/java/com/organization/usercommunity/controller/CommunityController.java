@@ -17,7 +17,7 @@ public class CommunityController {
     private UserService userService;
 
     //TODO: Do not forget remove this end-point
-    @RequestMapping(method=GET, value="/")
+    @RequestMapping(method=GET, value="/users")
     public Collection<User> getAllUsers() {
         return userService.getAllUsers();
     }

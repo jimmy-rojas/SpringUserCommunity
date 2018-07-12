@@ -1,5 +1,6 @@
 package com.organization.usercommunity.controller;
 
+import com.organization.usercommunity.controller.exception.UserNotFoundException;
 import com.organization.usercommunity.entity.User;
 import com.organization.usercommunity.entity.UserAuth;
 import com.organization.usercommunity.service.UserService;
@@ -17,12 +18,12 @@ public class UserController {
     private UserService userService;
 
     @RequestMapping(method=POST, value="/users")
-    public User authUser(@RequestBody UserAuth userAuth) {
+    public User authUser(@RequestBody UserAuth userAuth) throws UserNotFoundException {
         return userService.authUser(userAuth.getUsername(), userAuth.getPassword());
     }
 
     @RequestMapping(method=GET, value="/user/{userId}")
-    public User authUser(@PathVariable Long userId) {
+    public User getUserData(@PathVariable Long userId) throws UserNotFoundException {
         return userService.getUser(userId);
     }
 

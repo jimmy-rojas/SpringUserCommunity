@@ -6,6 +6,7 @@ import com.organization.usercommunity.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.Collection;
 
 @Service
@@ -18,20 +19,20 @@ public class UserService {
         return userRepository.findAll();
     }
 
-    public User authUser(String username, String password) {
+    public User authUser(String username, String password) throws EntityNotFoundException {
         User user = userRepository.findByEmail(username);
         if (user != null && user.getPassword().equalsIgnoreCase(password)) {
             return user;
         } else {
-            throw new UserNotFoundException(username);
+            throw new UserNotFoundException("UserName:" + username);
         }
     }
 
-    public User getUser(Long userId) {
+    public User getUser(Long userId) throws EntityNotFoundException {
         if (userRepository.existsById(userId)) {
             return userRepository.findById(userId).get();
         } else {
-            throw new UserNotFoundException("UserId:"+userId);
+            throw new UserNotFoundException("UserId:" + userId);
         }
     }
 
