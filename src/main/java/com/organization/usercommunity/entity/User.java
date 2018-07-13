@@ -3,6 +3,7 @@ package com.organization.usercommunity.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,6 +14,7 @@ public class User {
     @GeneratedValue
     private Long id;
 
+    @NotBlank(message = "User email must not be blank.")
     private String email;
     @JsonIgnore
     private String password;

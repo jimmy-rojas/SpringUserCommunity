@@ -4,6 +4,7 @@ import com.organization.usercommunity.entity.User;
 import com.organization.usercommunity.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Collection;
@@ -18,7 +19,7 @@ public class CommunityController {
 
     //TODO: Do not forget remove this end-point
     @RequestMapping(method=GET, value="/users")
-    public Collection<User> getAllUsers() {
+    public Collection<User> getAllUsers(@RequestParam(value = "query", required = false) String name) {
         return userService.getAllUsers();
     }
 
